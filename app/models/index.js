@@ -14,13 +14,12 @@ module.exports = {
    * mobi.cover? - mobi电子书封面（可选）
    */
   async getList(query) {
-    const res = await axios.get(`https://3lib.net/s/`, {
+    const res = await axios.get(`https://zh.singlelogin.re/s/`+encodeURIComponent(query), {
       headers: {
-        'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1'
+        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36'
       },
       params: {
-        'q': query,
-        'extensions[]': 'mobi'
+        'extensions[]': 'MOBI'
       }
     })
     const $ = cheerio.load(res.data)
@@ -46,12 +45,12 @@ module.exports = {
    * @return {string} - 返回mobi电子书下载用url
    */
   async getUrl(id) {
-    const res = await axios.get(`https://3lib.net${id}`, {
+    const res = await axios.get(`https://zh.singlelogin.re${id}`, {
       headers: {
-        'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1'
+        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36'
       }
     })
     const $ = cheerio.load(res.data)
-    return `https://3lib.net${$('.dlButton').attr('href')}`
+    return `https://zh.singlelogin.re${$('.dlButton').attr('href')}`
   }
 }
